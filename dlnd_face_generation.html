@@ -13798,7 +13798,7 @@ Default GPU Device: /gpu:0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generator</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">out_channel_dim</span><span class="p">,</span> <span class="n">is_train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
@@ -13814,7 +13814,7 @@ Default GPU Device: /gpu:0
         <span class="c1"># Input shape is 100</span>
         
         <span class="c1"># Fully connected layer, reshaped, batch normalized, with leaky relu, </span>
-        <span class="c1"># resulting in 7x7x512</span>
+        <span class="c1"># resulting in 2x2x512</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="mi">512</span><span class="p">)</span> 
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
@@ -13827,18 +13827,18 @@ Default GPU Device: /gpu:0
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
         
         <span class="c1"># Transposed convolutional layer, batch normalized, with leaky relu, </span>
-        <span class="c1"># resulting in 8x8x128</span>
+        <span class="c1"># resulting in 7x7x128</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d_transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
                 
         <span class="c1"># Transposed convolutional layer, batch normalized, with leaky relu, </span>
-        <span class="c1"># resulting in 16x16x64</span>
+        <span class="c1"># resulting in 14x14x64</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d_transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">is_train</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
         
-        <span class="c1"># Output layer, resulting in 28x28x3</span>
+        <span class="c1"># Output layer, resulting in 28x28x5</span>
         <span class="n">logits</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d_transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out_channel_dim</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
 
